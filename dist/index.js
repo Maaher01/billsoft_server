@@ -15,11 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 require("dotenv/config");
+const task_routes_1 = __importDefault(require("./routes/task.routes"));
+const db_1 = require("./config/db");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
 //Middleware
 app.use((0, cors_1.default)({ credentials: true }));
 app.use(express_1.default.json());
+//Routes
+app.use("/api/category", task_routes_1.default);
 app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
-    console.info(`Server has started at http://localhost:${PORT}`);
+    yield (0, db_1.connectToDatabase)();
+    console.info(`Server has started at http://localhost:${PORT}...`);
 }));
