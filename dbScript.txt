@@ -1,0 +1,13 @@
+create database BillSoft;
+
+create table categories(
+	id serial primary key not null,
+	categoryName varchar(128) not null,
+	parentCategory  INT
+);
+
+create table users (
+	id serial primary key not null,
+	fullName varchar(128) not null,
+	password varchar(128) not null
+);
