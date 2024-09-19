@@ -1,8 +1,16 @@
 import { Router } from "express";
-import { addCategory } from "../controllers/category.controller";
+import {
+  displayParentCategories,
+  displaySubCategories,
+  addCategory,
+  categoryDelete,
+} from "../controllers/category.controller";
 
 const router = Router();
 
+router.get("/", displayParentCategories);
+router.get("/:id", displaySubCategories);
 router.post("/add", addCategory);
+router.delete("/:id", categoryDelete);
 
 export default router;
