@@ -1,4 +1,4 @@
-# task-tracker-server
+# billsoft_server
 
 ## To run the node server:
 
@@ -6,4 +6,4 @@
 
 Then, run `npm run dev` to start the server.
 
-Add a .env file and add your own database credentials.
+Add a .env file and add your own environment variables.
