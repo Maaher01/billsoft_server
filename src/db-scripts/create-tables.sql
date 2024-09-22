@@ -7,7 +7,8 @@ create table categories(
 create table users (
 	id serial primary key not null,
 	fullName varchar(128) not null,
-	password varchar(128) not null
+	password varchar(128) not null,
+	role varchar(20) NOT NULL
 );
 
 create table entries (
