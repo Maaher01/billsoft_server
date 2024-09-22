@@ -42,7 +42,7 @@ export const editCategory = async (
 	categoryId: string
 ): Promise<Category> => {
 	const { rows } = await client.query(
-		"UPDATE categories SET categoryName=$1, parentCategory=$2 WHERE id=$3 returning *;",
+		"UPDATE categories SET categoryName=$1, parentCategory=$2 WHERE id=$3 RETURNING *;",
 		[categoryName, parentCategory, categoryId]
 	);
 	return rows[0];
@@ -50,7 +50,7 @@ export const editCategory = async (
 
 export const deleteCategory = async (id: string): Promise<Category> => {
 	const { rows } = await client.query(
-		"DELETE FROM categories WHERE id=$1 returning id;",
+		"DELETE FROM categories WHERE id=$1 RETURNING id;",
 		[id]
 	);
 	return rows[0];
