@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User, UserResponse } from "../models/user";
+import { User } from "../models/user";
 import { hashPassword, comparePassword } from "../utils/password.utils";
 import { createUser, getUser, updateUserPassword } from "../utils/user.utils";
 import jwt from "jsonwebtoken";
