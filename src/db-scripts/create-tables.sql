@@ -1,14 +1,14 @@
 create table categories(
 	id serial primary key not null,
 	categoryName varchar(128) not null,
-	parentCategory INT
+	parentCategory INT,
+	status INT
 );
 
 create table users (
 	id serial primary key not null,
 	fullName varchar(128) not null,
-	password varchar(128) not null,
-	role varchar(20) NOT NULL
+	password varchar(128) not null
 );
 
 create table entries (
