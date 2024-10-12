@@ -9,7 +9,11 @@ export const getCategoryById = async (id: string): Promise<Category> => {
 };
 
 export const getAllCategories = async (): Promise<Category[]> => {
-	const { rows } = await client.query("SELECT * FROM categories;");
+	const { rows } = await client.query(`
+		SELECT c1.id, c1.categoryname, c1.status, c1.parentcategory, c2.categoryname as parentcategoryname
+		FROM categories c1
+		LEFT JOIN categories c2 ON c1.parentCategory = c2.id
+		ORDER BY c1.id DESC`);
 	return rows;
 };
 
@@ -44,14 +48,15 @@ export const createCategory = async (
 
 export const editCategory = async (
 	categoryName: string,
-	parentCategory: string,
+	parentCategory: number,
 	status: number,
-	categoryId: string
+	id: string
 ): Promise<Category> => {
 	const { rows } = await client.query(
 		"UPDATE categories SET categoryName=$1, parentCategory=$2, status=$3 WHERE id=$4 RETURNING *;",
-		[categoryName, parentCategory, status, categoryId]
+		[categoryName, parentCategory, status, id]
 	);
+
 	return rows[0];
 };
 

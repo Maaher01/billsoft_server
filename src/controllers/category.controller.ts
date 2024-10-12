@@ -13,6 +13,7 @@ import {
 export const displayAllCategories = async (req: Request, res: Response) => {
 	try {
 		const categories = (await getAllCategories()) as Category[];
+
 		if (!categories) {
 			return res.status(404).json({
 				status: "Failed",
@@ -79,26 +80,15 @@ export const displaySubCategories = async (req: Request, res: Response) => {
 	}
 };
 
-export const categoryEdit = async (req: Request, res: Response) => {
-	const { categoryName, parentCategory, status } = req.body;
+export const getSingleCategoryById = async (req: Request, res: Response) => {
 	const { id } = req.params;
 
 	try {
-		const response = (await editCategory(
-			categoryName,
-			parentCategory,
-			status,
-			id
-		)) as Category;
-		if (!response) {
-			return res.status(404).json({
-				status: "Failed",
-				error: "Category not found",
-			});
-		}
+		const category = (await getCategoryById(id)) as Category;
+
 		return res.status(200).json({
 			status: "Success",
-			data: { ...response },
+			data: category,
 		});
 	} catch (error: any) {
 		res.status(500).json({
@@ -121,6 +111,36 @@ export const addCategory = async (req: Request, res: Response) => {
 		return res.status(200).json({
 			status: "Success",
 			data: category,
+		});
+	} catch (error: any) {
+		res.status(500).json({
+			status: "Failed",
+			error: error.message,
+		});
+	}
+};
+
+export const categoryEdit = async (req: Request, res: Response) => {
+	const { categoryName, parentCategory, status } = req.body;
+	const { id } = req.params;
+
+	try {
+		const response = (await editCategory(
+			categoryName,
+			parentCategory,
+			status,
+			id
+		)) as Category;
+
+		if (!response) {
+			return res.status(404).json({
+				status: "Failed",
+				error: "Category not found",
+			});
+		}
+		return res.status(200).json({
+			status: "Success",
+			data: { ...response },
 		});
 	} catch (error: any) {
 		res.status(500).json({
