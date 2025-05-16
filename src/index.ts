@@ -9,7 +9,7 @@ import entryRouter from "./routes/entry.routes";
 
 const app: Application = Express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 //Middleware
 app.use(cors({ credentials: true }));
@@ -21,6 +21,6 @@ app.use("/api/category", categoryRouter);
 app.use("/api/entry", entryRouter);
 
 app.listen(PORT, async () => {
-  await connectToDatabase();
-  console.info(`Server has started at http://localhost:${PORT}...`);
+	await connectToDatabase();
+	console.info(`Server has started at http://localhost:${PORT}...`);
 });

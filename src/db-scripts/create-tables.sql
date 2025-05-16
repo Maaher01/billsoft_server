@@ -1,7 +1,7 @@
 create table categories(
 	id serial primary key not null,
 	categoryName varchar(128) not null,
-	parentCategory INT,
+	parentCategory INT references categories(id),
 	status INT
 );
 
